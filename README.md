@@ -1,4 +1,4 @@
-# 🛡️ Oracle Cloud Security Fortress
+# 🛡️ Cloud Security Fortress
 개인용 클라우드 환경에서 WireGuard 와 AdGuard Home 을 통합 구축하는 마스터 가이드.
 
 ## 🔑 1. 준비물: SSH 접속 방법
@@ -13,7 +13,7 @@ chmod 400 your-key-name.key
 ssh -i your-key-name.key ubuntu@<YOUR_ORACLE_IP>
 ```
 
-## 🧱 2. 오라클 클라우드 콘솔 설정 (Ingress Rules)
+## 🧱 2. 클라우드 콘솔 설정 (Ingress Rules)
 서버 접속 전, 아래 포트들을 반드시 개방해야 사용할 수 있음.
 
 | 프로토콜 | 포트 | 용도 |
