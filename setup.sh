@@ -7,7 +7,8 @@ echo "Oracle Cloud Ubuntu 24.04에서 WireGuard + AdGuard Home 준비 중..."
 # 1. 시스템 업데이트 & 필수 패키지 설치
 echo "시스템 업데이트 및 Docker 설치 중..."
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y curl git nano docker.io docker-compose
+sudo apt install -y curl git nano docker.io docker-compose-v2
+sudo systemctl enable --now docker
 
 # 2. IP 포워딩 영구 활성화 (WireGuard 필수)
 echo "IP 포워딩 활성화..."
@@ -17,15 +18,15 @@ sudo sysctl -p
 
 # 3. Docker 그룹 추가 (sudo 없이 docker 사용 가능)
 echo "Docker 그룹 추가..."
-sudo usermod -aG docker ubuntu
-newgrp docker
+sudo usermod -aG docker $USER
 
 # 4. 프로젝트 폴더 생성
 echo "프로젝트 폴더 생성..."
-mkdir -p ~/fortress/{wireguard,adguard}
+mkdir -p ~/fortress/{wireguard/data,adguard/{conf,work}}
 
 echo ""
 echo "🎉 초기 설정 완료!"
+echo "⚠️ 중요: 'newgrp docker'를 입력하거나 재로그인 후 각 폴더에서 설치를 진행하세요."
 echo ""
 echo "다음 단계 안내:"
 echo "  1. WireGuard 설정"
