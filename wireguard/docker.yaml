@@ -4,22 +4,14 @@ services:
   wg-easy:
     image: ghcr.io/wg-easy/wg-easy:latest
     container_name: wg-easy
-    environment:
-      - WG_HOST=YOUR_PUBLIC_IP_HERE             # 본인의 공인 IP
-      - PASSWORD=Your_Admin_Password            # 웹 UI(51821 포트) 접속 비밀번호
-      - WG_DEFAULT_DNS=10.8.0.1                 # AdGuard Home 컨테이너 IP
-      - WG_ALLOWED_IPS=0.0.0.0/0                # 모든 트래픽 VPN 경유
-      - WG_MTU=1280                             # 사이트 접속 문제 핵심 해결
-      - WG_PERSISTENT_KEEPALIVE=25
-    volumes:
-      - ./data:/etc/wireguard
-    ports:
-      - "51820:51820/udp"   # VPN 터널
-      - "51821:51821/tcp"   # 웹 UI
+    restart: always
+    network_mode: "host"
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
-    sysctls:
-      - net.ipv4.ip_forward=1
-      - net.ipv4.conf.all.src_valid_mark=1
-    restart: unless-stopped
+    environment:
+      - WG_HOST=<YOUR_SERVER_PUBLIC_IP>
+      - WG_DEFAULT_DNS=10.8.0.1
+      - PASSWORD=<YOUR_SECURE_PASSWORD>
+    volumes:
+      - ./data:/etc/wireguard
