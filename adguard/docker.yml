@@ -2,13 +2,14 @@ version: "3.8"
 
 services:
   adguardhome:
-    image: adguard/adguardhome:latest
+    image: adguard/adguardhome
     container_name: adguardhome
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "3000:3000/tcp"     # 초기 설정 후 Security List에서 삭제 추천
+    restart: always
+    network_mode: "host"
     volumes:
-      - ./work:/opt/adguardhome/work
       - ./conf:/opt/adguardhome/conf
-    restart: unless-stopped
+      - ./work:/opt/adguardhome/work
+    deploy:
+      resources:
+        limits:
+          memory: 512M
